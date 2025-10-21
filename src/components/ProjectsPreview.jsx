@@ -37,7 +37,6 @@ const PROJECTS_PREVIEW = [
   },
 ];
 
-// Стили
 const CONTAINER_CLASSES = "container mx-auto px-4 max-w-7xl";
 const CTA_BUTTON_CLASSES = "inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-10 rounded-lg transition duration-300 shadow-xl border-2 border-orange-500 tracking-wider uppercase";
 
@@ -50,14 +49,12 @@ const ProjectsPreview = () => {
           Наши решения на производстве: 4 последних кейса
         </h2>
 
-        {/* Сетка проектов */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {PROJECTS_PREVIEW.map((project) => (
             <div
               key={project.id}
               className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-xl hover:border-orange-500/30 transform hover:-translate-y-1 group"
             >
-              {/* Изображение */}
               <img
                 src={project.image}
                 alt={project.title}
@@ -66,12 +63,10 @@ const ProjectsPreview = () => {
               />
 
               <div className="p-5 flex flex-col h-full">
-                {/* Заголовок */}
                 <span className="text-lg font-bold text-gray-900 mb-3 block border-b border-orange-500/20 pb-2">
                   {project.title}
                 </span>
 
-                {/* Описание задачи и типа */}
                 <p className="text-gray-600 text-sm mb-1">
                   <span className="font-semibold text-gray-700">Задача:</span> {project.task}
                 </p>
@@ -79,7 +74,6 @@ const ProjectsPreview = () => {
                   <span className="font-semibold text-gray-700">Тип:</span> {project.type}
                 </p>
 
-                {/* Ссылка */}
                 <Link
                   to={project.link}
                   className="text-orange-500 hover:text-orange-600 font-semibold mt-auto self-start transition duration-200 flex items-center"
@@ -94,7 +88,6 @@ const ProjectsPreview = () => {
           ))}
         </div>
 
-        {/* Кнопка "Посмотреть все проекты" */}
         <div className="text-center mt-12">
           <Link to="/projects" className={CTA_BUTTON_CLASSES}>
             Посмотреть все проекты

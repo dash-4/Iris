@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// Имитация данных
 const SLIDER_DATA = [
   {
     title: "Проектируем и производим конвейеры «под ключ»",
@@ -32,18 +31,16 @@ const ADVANTAGES_DATA = [
   },
 ];
 
-// Стили
 const CONTAINER_CLASSES = "container mx-auto px-4";
 const CTA_BUTTON_CLASSES = "bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 md:py-4 px-8 md:px-10 rounded-lg uppercase tracking-widest transition duration-300 transform hover:scale-[1.02] shadow-2xl";
 
 const SliderBanner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Автоматическая смена слайдов
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDER_DATA.length);
-    }, 5000); // Смена каждые 5 секунд
+    }, 5000); 
     return () => clearInterval(interval);
   }, []);
 
@@ -66,7 +63,6 @@ const SliderBanner = () => {
           }}
         ></div>
 
-        {/* Основной контент слайдера */}
         <div className={`${CONTAINER_CLASSES} text-center z-10 max-w-5xl`}>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 leading-tight drop-shadow-2xl">
             {slide.title}
@@ -77,7 +73,6 @@ const SliderBanner = () => {
           <button className={CTA_BUTTON_CLASSES}>{slide.ctaText}</button>
         </div>
 
-        {/* Навигационные точки */}
         <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
           {SLIDER_DATA.map((_, index) => (
             <button
@@ -91,7 +86,6 @@ const SliderBanner = () => {
         </div>
       </section>
 
-      {/* Блок преимуществ */}
       <section className="py-16 bg-gray-100 text-gray-900">
         <div className={CONTAINER_CLASSES}>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">

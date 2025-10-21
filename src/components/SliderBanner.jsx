@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// Имитация данных (должны быть импортированы)
+// Имитация данных
 const SLIDER_DATA = [
   {
     title: "Проектируем и производим конвейеры «под ключ»",
@@ -14,61 +14,104 @@ const SLIDER_DATA = [
   },
 ];
 
-const KEY_BENEFITS = [
-  { id: 1, title: "Собственное производство" },
-  { id: 2, title: "Срок от проекта до запуска – 30 дней" },
-  { id: 3, title: "Гарантия 24 месяца" },
+const ADVANTAGES_DATA = [
+  {
+    icon: "⏱",
+    title: "Срок от проекта до запуска – 30 дней",
+    description: "Быстрое проектирование и внедрение для минимизации простоев.",
+  },
+  {
+    icon: "🛠",
+    title: "Гарантия 24 месяца",
+    description: "Надежность и поддержка на каждом этапе эксплуатации.",
+  },
+  {
+    icon: "🏭",
+    title: "Собственное производство",
+    description: "Полный контроль качества от чертежа до готового конвейера.",
+  },
 ];
 
-// Упрощенные и стилизованные константы для переиспользования классов
+// Стили
 const CONTAINER_CLASSES = "container mx-auto px-4";
-const CTA_BUTTON_CLASSES = "bg-iris-orange hover:bg-orange-600 text-white font-bold py-3 md:py-4 px-8 md:px-10 rounded-lg uppercase tracking-widest transition duration-300 transform hover:scale-[1.02] shadow-2xl"; // Усиленный эффект
+const CTA_BUTTON_CLASSES = "bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 md:py-4 px-8 md:px-10 rounded-lg uppercase tracking-widest transition duration-300 transform hover:scale-[1.02] shadow-2xl";
 
 const SliderBanner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Автоматическая смена слайдов
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDER_DATA.length);
+    }, 5000); // Смена каждые 5 секунд
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleDotClick = (index) => {
+    setCurrentSlide(index);
+  };
+
   const slide = SLIDER_DATA[currentSlide];
 
   return (
-    <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-gray-900 text-white border-b-4 border-iris-orange/50">
-      
-      {/* Фоновое изображение с более заметным затемнением для контраста */}
-      <div className="absolute inset-0 bg-black/60 z-0" style={{ 
-        backgroundImage: `url('/images/hero-bg-default.jpg')`, 
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}></div>
+    <>
+      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-gray-900 text-white border-b-4 border-orange-500/50">
+        {/* Фоновое изображение */}
+        <div
+          className="absolute inset-0 bg-black/60 z-0"
+          style={{
+            backgroundImage: `url('/images/hero-bg-default.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        ></div>
 
-      {/* Основной контент */}
-      <div className={`${CONTAINER_CLASSES} text-center z-10 max-w-5xl`}>
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 leading-tight drop-shadow-2xl">
-          {slide.title}
-        </h1>
-        <p className="text-lg md:text-2xl font-light mb-8 md:mb-12 opacity-90 drop-shadow-xl">
-          {slide.subtitle}
-        </p>
-        <button className={CTA_BUTTON_CLASSES}>
-          {slide.ctaText}
-        </button>
-      </div>
+        {/* Основной контент слайдера */}
+        <div className={`${CONTAINER_CLASSES} text-center z-10 max-w-5xl`}>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 leading-tight drop-shadow-2xl">
+            {slide.title}
+          </h1>
+          <p className="text-lg md:text-2xl font-light mb-8 md:mb-12 opacity-90 drop-shadow-xl">
+            {slide.subtitle}
+          </p>
+          <button className={CTA_BUTTON_CLASSES}>{slide.ctaText}</button>
+        </div>
 
-      {/* Блок преимуществ: более строгий промышленный вид */}
-      <div className="absolute bottom-0 w-full bg-iris-blue-dark/95 backdrop-blur-sm z-20 border-t border-gray-700">
-        <div className={`${CONTAINER_CLASSES} py-4 flex flex-col md:flex-row justify-between items-center`}>
-          {KEY_BENEFITS.map(benefit => (
-            <div 
-              key={benefit.id} 
-              className="flex items-center text-sm md:text-base font-medium py-1 md:py-0 w-full md:w-auto justify-center text-gray-100"
-            >
-              {/* Используем более заметную, стилизованную иконку */}
-              <svg className="w-5 h-5 text-iris-orange mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-              </svg>
-              <span className="truncate">{benefit.title}</span>
-            </div>
+        {/* Навигационные точки */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+          {SLIDER_DATA.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full ${
+                currentSlide === index ? 'bg-orange-500' : 'bg-white/50'
+              } transition-all duration-300`}
+              onClick={() => handleDotClick(index)}
+            ></button>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Блок преимуществ */}
+      <section className="py-16 bg-gray-100 text-gray-900">
+        <div className={CONTAINER_CLASSES}>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Наши преимущества
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {ADVANTAGES_DATA.map((advantage, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-[1.02] transition duration-300"
+              >
+                <div className="text-4xl mb-4">{advantage.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{advantage.title}</h3>
+                <p className="text-gray-600">{advantage.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

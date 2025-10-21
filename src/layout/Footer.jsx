@@ -7,7 +7,7 @@ function Footer() {
     const irisOrange = 'hover:text-[#ff9900] transition-colors'; // Имитация corporate orange
 
     return (
-        <footer className="bg-gray-900 text-white py-12 mt-20 rounded-t-xl shadow-inner shadow-gray-700">
+        <footer className="bg-gray-900 text-white py-12  rounded-t-xl shadow-inner shadow-gray-700">
             <div className="container mx-auto px-4 max-w-7xl">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-gray-700 pb-8">
                     

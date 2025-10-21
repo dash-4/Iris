@@ -2,18 +2,18 @@
 import React from "react";
 import SliderBanner from "../components/SliderBanner";
 import CatalogPreview from "../components/CatalogPreview";
-import BenefitsBlock from "../components/BenefitsBlock";
 import ProjectsPreview from "../components/ProjectsPreview";
 import AboutBrief from "../components/AboutBrief";
+import CallToAction from "../components/CallToAction";
 
 const Home = () => {
   return (
     <div className="home-page-content">
       <SliderBanner />
-      <CatalogPreview />
-      <BenefitsBlock />
+      <CatalogPreview />\
       <ProjectsPreview />
       <AboutBrief />
+      <CallToAction />
     </div>
   );
 };
